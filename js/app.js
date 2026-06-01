@@ -8,6 +8,7 @@ let cardapioJaInicializado = false;
 const elementoListaCardapio = document.getElementById("lista-cardapio");
 const elementoListaCarrinho = document.getElementById("lista-carrinho");
 const elementoMensagemPedido = document.getElementById("mensagem-pedido");
+const elementoMensagemDesconto = document.getElementById("mensagem-desconto");
 const botaoFinalizar = document.getElementById("btn-finalizar");
 const botaoLimpar = document.getElementById("btn-limpar");
 
@@ -31,6 +32,26 @@ function persistirCarrinho() {
 
 function renderizarCarrinho() {
   renderizarCarrinhoCompartilhado(carrinho, TEXTO_CARRINHO_VAZIO);
+}
+
+function obterTotalCarrinho() {
+  return carrinho.reduce(function (total, item) {
+    return total + item.preco * item.quantidade;
+  }, 0);
+}
+
+function obterFormaPagamentoSelecionada() {
+  const radio = document.querySelector('input[name="forma-pagamento"]:checked');
+  return radio ? radio.value : "pix";
+}
+
+function atualizarMensagemDesconto() {
+  if (!elementoMensagemDesconto) return;
+  if (obterFormaPagamentoSelecionada() === "pix") {
+    elementoMensagemDesconto.textContent = "Pague com PIX e ganhe 2% de desconto no total.";
+  } else {
+    elementoMensagemDesconto.textContent = "Sem desconto adicional para Cartão.";
+  }
 }
 
 function criarHtmlCardPizza(pizza, idCategoria) {
@@ -136,8 +157,16 @@ function finalizarPedido() {
     return;
   }
 
-  const linhas = carrinho.map(function (item) {
+  var formaPagamento = obterFormaPagamentoSelecionada();
+  var nomeForma = formaPagamento === "pix" ? "PIX" : "Cartão";
+  var desconto = formaPagamento === "pix" ? 0.02 : 0;
+  var total = obterTotalCarrinho();
+  var totalFormatado = formatarPrecoMoeda(total);
+  var totalComDesconto = formatarPrecoMoeda(total * (1 - desconto));
+
+  var linhas = carrinho.map(function (item) {
     return (
+      "- " +
       item.quantidade +
       "× " +
       item.nome +
@@ -147,14 +176,28 @@ function finalizarPedido() {
     );
   });
 
-  const totalEl = document.getElementById("valor-total");
+  var mensagemWhatsapp =
+    "Olá! Gostaria de fazer um pedido:\n" +
+    linhas.join("\n") +
+    "\nForma de pagamento: " +
+    nomeForma +
+    (desconto > 0 ? " (2% de desconto aplicado)" : "") +
+    "\nTotal: R$ " +
+    (desconto > 0 ? totalComDesconto : totalFormatado) +
+    (desconto > 0
+      ? "\n*Total original: R$ " + totalFormatado + "*"
+      : "") +
+    "\n\nPor favor, confirme o pedido.";
+
+  if (typeof obterLinkWhatsapp === "function") {
+    var link = obterLinkWhatsapp(mensagemWhatsapp);
+    if (link) {
+      window.open(link, "_blank");
+    }
+  }
 
   mostrarMensagem(
-    "Pedido registrado! " +
-      linhas.join(" · ") +
-      " — Total: R$ " +
-      (totalEl ? totalEl.textContent : "") +
-      ". Envie pelo WhatsApp se quiser confirmar.",
+    "Pedido registrado! Mensagem preparada para o WhatsApp.",
     "sucesso"
   );
 }
@@ -162,6 +205,14 @@ function finalizarPedido() {
 function iniciarApp() {
   if (botaoFinalizar) botaoFinalizar.addEventListener("click", finalizarPedido);
   if (botaoLimpar) botaoLimpar.addEventListener("click", limparCarrinho);
+
+  const radiosFormaPagamento = document.querySelectorAll('input[name="forma-pagamento"]');
+  if (radiosFormaPagamento.length > 0) {
+    radiosFormaPagamento.forEach(function (radio) {
+      radio.addEventListener("change", atualizarMensagemDesconto);
+    });
+    atualizarMensagemDesconto();
+  }
 
   if (elementoListaCarrinho) {
     elementoListaCarrinho.addEventListener("click", function (evento) {

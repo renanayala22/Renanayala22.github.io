@@ -860,6 +860,90 @@ code {
   gap: var(--space-2);
 }
 
+.carrinho__pagamento {
+  margin-bottom: var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.carrinho__label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.carrinho__pagamento-opcoes {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.carrinho__pagamento-opcao {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #fff;
+  cursor: pointer;
+}
+
+.carrinho__pagamento-opcao input {
+  accent-color: var(--brand);
+}
+
+.carrinho__pagamento-opcao input[type="radio"] {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.carrinho__pagamento-opcao strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.carrinho__pagamento-opcao small {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.carrinho__pagamento-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.carrinho__pagamento-icone--pix {
+  background: linear-gradient(135deg, #10c75a 0%, #04ab4a 100%);
+}
+
+.carrinho__pagamento-opcao:hover {
+  border-color: var(--brand);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.carrinho__pagamento-opcao input:checked ~ .carrinho__pagamento-icone {
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+
+.carrinho__info {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
 .btn-remover {
   flex-shrink: 0;
   min-height: 36px;

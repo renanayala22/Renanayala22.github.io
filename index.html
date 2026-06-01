@@ -122,6 +122,30 @@
           <span>Total</span>
           <span class="carrinho__preco">R$ <strong id="valor-total">0,00</strong></span>
         </div>
+
+        <div class="carrinho__pagamento">
+          <p class="carrinho__label">Forma de pagamento</p>
+          <div class="carrinho__pagamento-opcoes">
+            <label class="carrinho__pagamento-opcao">
+              <input type="radio" name="forma-pagamento" value="pix" checked>
+              <span class="carrinho__pagamento-icone carrinho__pagamento-icone--pix">PIX</span>
+              <span>
+                <strong>PIX</strong>
+                <small>2% de desconto</small>
+              </span>
+            </label>
+            <label class="carrinho__pagamento-opcao">
+              <input type="radio" name="forma-pagamento" value="cartao">
+              <span class="carrinho__pagamento-icone">💳</span>
+              <span>
+                <strong>Cartão</strong>
+                <small>Pagamento com cartão</small>
+              </span>
+            </label>
+          </div>
+          <p id="mensagem-desconto" class="carrinho__info">Pague com PIX e ganhe 2% de desconto no total.</p>
+        </div>
+
         <div class="carrinho__botoes">
           <button type="button" id="btn-finalizar" class="btn btn--gradiente">Finalizar pedido</button>
           <button type="button" id="btn-limpar" class="btn btn--fantasma">Limpar</button>
