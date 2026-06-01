@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#222228" id="meta-theme-color">
+  <meta name="description" content="Formas de pagamento — PIX, cartão e transferência. Instruções e contatos para envio de comprovante." />
+
+  <title>Formas de pagamento</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Scripts do site (carregados com `defer` para não bloquear o carregamento) -->
+  <script src="js/config.js" defer></script>
+  <script src="js/config-aplicar.js" defer></script>
+  <script src="js/pagamento.js" defer></script>
+</head>
+
+<body class="corpo pagina-pagamento" data-titulo-pagina="Pagamento">
+
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+  <nav class="nav-site container" aria-label="Menu principal">
+    <a class="nav-site__marca" href="index.html">
+      <img src="img/logo.png" alt="Logo — Império Pizzaria" class="nav-site__logo" width="40" height="40">
+      <span id="nav-nome">Império Pizzaria</span>
+    </a>
+    <div class="nav-site__links">
+      <a href="index.html" class="nav-site__link">Promoções</a>
+      <a href="promocoes.html" class="nav-site__link">Combos</a>
+    </div>
+  </nav>
+
+  <header class="pagina-topo container">
+    <h1 class="pagina-topo__titulo">Formas de pagamento</h1>
+    <p class="pagina-topo__texto">
+      Confira como pagar e os dados para transferência. Tudo configurável em
+      <code>js/config.js</code>.
+    </p>
+  </header>
+
+  <main class="principal container">
+
+    <h1 id="conteudo-principal" class="sr-only">Conteúdo principal</h1>
+
+    <!-- Código PIX -->
+    <section class="card-banco card-banco--pix" id="card-banco" aria-labelledby="titulo-pix">
+      <div class="card-banco__cabecalho">
+        <span class="card-banco__selo">PIX</span>
+        <h2 id="titulo-pix" class="card-banco__titulo">Código PIX</h2>
+      </div>
+
+      <div class="card-banco__pix-bloco">
+        <p class="card-banco__pix-label">
+          Chave <span id="banco-tipo-chave">E-mail</span>
+        </p>
+        <code class="card-banco__pix" id="banco-chave">seu@email.com</code>
+        <button type="button" class="btn btn--copiar" id="btn-copiar-pix" aria-label="Copiar chave PIX">
+          Copiar código PIX
+        </button>
+        <span id="banco-status" class="sr-only" aria-live="polite" aria-atomic="true"></span>
+      </div>
+
+      <p class="card-banco__aviso" id="banco-instrucoes">
+        Envie o comprovante pelo WhatsApp após pagar.
+      </p>
+    </section>
+
+    <!-- Lista de formas aceitas -->
+    <section class="secao-pagamento" aria-labelledby="titulo-formas">
+      <h2 id="titulo-formas" class="secao-pagamento__titulo">Aceitamos</h2>
+      <ul class="lista-pagamentos" id="lista-formas-pagamento"></ul>
+    </section>
+
+    <!-- WhatsApp -->
+    <section class="cta-whatsapp">
+      <h2 class="cta-whatsapp__titulo">Dúvidas ou comprovante?</h2>
+      <p class="cta-whatsapp__texto">Envie mensagem pelo WhatsApp da loja.</p>
+      <a
+        href="#"
+        class="btn btn--whatsapp btn--whatsapp-grande"
+        data-whatsapp
+      >
+        Falar no WhatsApp
+      </a>
+    </section>
+
+    <p class="voltar-cardapio">
+      <a href="index.html" class="btn btn--outline-escuro">← Voltar às promoções</a>
+    </p>
+  </main>
+
+  <footer class="rodape container">
+    <p><span id="rodape-nome">Império Pizzaria</span> · Pagamentos</p>
+  </footer>
+
+</body>
+</html>
